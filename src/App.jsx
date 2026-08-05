@@ -6,14 +6,12 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import RoleGuard from "./routes/RoleGuard";
 
 import Layout from "./components/Layout";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Users from "./pages/Users";
 import AccessDenied from "./pages/AccessDenied";
 import NotFound from "./pages/NotFound";
 
@@ -32,9 +30,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
 
-              <Route element={<RoleGuard allowedRoles={["ADMIN"]} />}>
-                <Route path="/users" element={<Users />} />
-              </Route>
+              
             </Route>
           </Route>
 

@@ -7,8 +7,8 @@ import { useAuth } from '../context/AuthContext';
 import { TextField, Button, Box, Typography, Alert, Container, Paper } from '@mui/material';
 
 const schema = yup.object().shape({
-  email: yup.string().email('Email invalide').required('L\'email est requis'),
-  password: yup.string().required('Le mot de passe est requis'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup.string().required('Password is required'),
 });
 
 const Login = () => {
@@ -34,7 +34,7 @@ const Login = () => {
     <Container maxWidth="xs" sx={{ display: 'flex', alignItems: 'center', minHeight: '100vh' }}>
       <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
         <Typography variant="h5" align="center" gutterBottom>
-          Connexion LogiTrack
+          Logitrack - Login
         </Typography>
         
         {apiError && <Alert severity="error" sx={{ mb: 2 }}>{apiError}</Alert>}
@@ -51,7 +51,7 @@ const Login = () => {
           <TextField
             fullWidth
             type="password"
-            label="Mot de passe"
+            label="Password"
             margin="normal"
             {...register('password')}
             error={!!errors.password}
@@ -65,10 +65,10 @@ const Login = () => {
             sx={{ mt: 3, mb: 2 }}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Connexion...' : 'Se connecter'}
+            {isSubmitting ? 'Connecting...' : 'Sign In'}
           </Button>
           <Typography align="center" variant="body2">
-            Pas encore de compte ? <Link to="/register">S'inscrire</Link>
+            Don't have an account yet? <Link to="/register">Sign Up</Link>
           </Typography>
         </Box>
       </Paper>
