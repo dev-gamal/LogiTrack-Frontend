@@ -18,6 +18,9 @@ import NotFound from "./pages/NotFound";
 import ClientList from "./pages/ClientList";
 import ClientDetails from "./pages/ClientDetails";
 import ClientForm from "./pages/ClientForm";
+import ProductList from "./pages/ProductList";
+import ProductDetails from "./pages/ProductDetails";
+import ProductForm from "./pages/ProductForm";
 
 function App() {
   return (
@@ -35,12 +38,16 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/clients" element={<ClientList />} />
               <Route path="/clients/:id" element={<ClientDetails />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/products/:id" element={<ProductDetails />} />
 
               <Route
                 element={<RoleGuard allowedRoles={["ADMIN", "MANAGER"]} />}
               >
                 <Route path="/clients/new" element={<ClientForm />} />
                 <Route path="/clients/edit/:id" element={<ClientForm />} />
+                <Route path="/products/new" element={<ProductForm />} />
+                <Route path="/products/edit/:id" element={<ProductForm />} />
               </Route>
             </Route>
           </Route>
