@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import RoleGuard from "./routes/RoleGuard";
 
 import Layout from "./components/Layout";
 
@@ -14,6 +15,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AccessDenied from "./pages/AccessDenied";
 import NotFound from "./pages/NotFound";
+import ClientList from "./pages/ClientList";
+import ClientDetails from "./pages/ClientDetails";
+import ClientForm from "./pages/ClientForm";
 
 function App() {
   return (
@@ -29,8 +33,15 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/clients" element={<ClientList />} />
+              <Route path="/clients/:id" element={<ClientDetails />} />
 
-              
+              <Route
+                element={<RoleGuard allowedRoles={["ADMIN", "MANAGER"]} />}
+              >
+                <Route path="/clients/new" element={<ClientForm />} />
+                <Route path="/clients/edit/:id" element={<ClientForm />} />
+              </Route>
             </Route>
           </Route>
 
