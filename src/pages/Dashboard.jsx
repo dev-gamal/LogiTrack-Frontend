@@ -41,20 +41,23 @@ const Dashboard = () => {
       try {
         setLoading(true);
         const [clientsRes, productsRes, ordersRes] = await Promise.all([
-          api.get("/clients").catch(() => ({ data: [] })),
-          api.get("/products").catch(() => ({ data: [] })),
-          api.get("/orders").catch(() => ({ data: [] })),
+          api.get("/clients").catch(() => ({ data: { content: [] } })),
+          api.get("/products").catch(() => ({ data: { content: [] } })),
+          api.get("/orders").catch(() => ({ data: { content: [] } })),
         ]);
 
-        const clients = clientsRes.data || [];
-        const products = productsRes.data || [];
-        const orders = ordersRes.data || [];
+        const clientsData = clientsRes.data;
+        const clients = Array.isArray(clientsData) ? clientsData : (clientsData.content || []);
+        const productsData = productsRes.data;
+        const products = Array.isArray(productsData) ? productsData : (productsData.content || []);
+        const ordersData = ordersRes.data;
+        const orders = Array.isArray(ordersData) ? ordersData : (ordersData.content || []);
 
-        const pending = orders.filter((o) => o.status === "PENDING").length;
-        const shipped = orders.filter((o) => o.status === "SHIPPED").length;
-        const delivered = orders.filter((o) => o.status === "DELIVERED").length;
+        const pending = orders.filter((o) => o.statut === "PENDING").length;
+        const shipped = orders.filter((o) => o.statut === "SHIPPED").length;
+        const delivered = orders.filter((o) => o.statut === "DELIVERED").length;
 
-        const lowStock = products.filter((p) => p.quantity <= 5);
+        const lowStock = products.filter((p) => p.stockAmount <= 5);
 
         setStats({
           totalClients: clients.length,
@@ -109,7 +112,7 @@ const Dashboard = () => {
       )}
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Total Clients"
             value={stats.totalClients}
@@ -118,7 +121,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Total Products"
             value={stats.totalProducts}
@@ -127,7 +130,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Total Orders"
             value={stats.totalOrders}
@@ -136,7 +139,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Waiting Orders"
             value={stats.ordersPending}
@@ -145,7 +148,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Shipped Orders"
             value={stats.ordersShipped}
@@ -154,7 +157,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <DashboardCard
             title="Delivered Orders"
             value={stats.ordersDelivered}
@@ -164,7 +167,7 @@ const Dashboard = () => {
         </Grid>
 
         {(user?.role === "ADMIN" || user?.role === "MANAGER") && (
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper elevation={3} sx={{ p: 3, height: "100%" }}>
               <Box display="flex" alignItems="center" gap={1} mb={2}>
                 <WarningAmberIcon color="error" />
@@ -179,7 +182,7 @@ const Dashboard = () => {
               ) : (
                 stats.lowStockProducts.map((p) => (
                   <Typography key={p.id} variant="body2" sx={{ py: 0.5 }}>
-                    • <strong>{p.name}</strong> (Remaining : {p.quantity})
+                    • <strong>{p.name}</strong> (Remaining : {p.stockAmount})
                   </Typography>
                 ))
               )}
@@ -187,7 +190,7 @@ const Dashboard = () => {
           </Grid>
         )}
 
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper elevation={3} sx={{ p: 3, height: "100%" }}>
             <Box display="flex" alignItems="center" gap={1} mb={2}>
               <StarIcon color="warning" />

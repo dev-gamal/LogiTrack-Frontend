@@ -9,9 +9,8 @@ import productService from '../services/productService';
 const schema = yup.object().shape({
   name: yup.string().required('Name is required'),
   category: yup.string().required('Category is required'),
-  description: yup.string().required('Description is required'),
   price: yup.number().typeError('Price must be a number').positive('Price must be positive').required('Price is required'),
-  quantity: yup.number().typeError('Quantity must be a number').integer('Quantity must be an integer').min(0, 'Quantity cannot be negative').required('Quantity is required'),
+  stockAmount: yup.number().typeError('Stock amount must be a number').integer('Stock amount must be an integer').min(0, 'Stock amount cannot be negative').required('Stock amount is required'),
 });
 
 const ProductForm = () => {
@@ -62,8 +61,7 @@ const ProductForm = () => {
           <TextField fullWidth label="Product Name" margin="normal" {...register('name')} error={!!errors.name} helperText={errors.name?.message} />
           <TextField fullWidth label="Category" margin="normal" {...register('category')} error={!!errors.category} helperText={errors.category?.message} />
           <TextField fullWidth label="Price (MAD)" type="number" margin="normal" {...register('price')} error={!!errors.price} helperText={errors.price?.message} />
-          <TextField fullWidth label="Quantity in Stock" type="number" margin="normal" {...register('quantity')} error={!!errors.quantity} helperText={errors.quantity?.message} />
-          <TextField fullWidth label="Description" margin="normal" multiline rows={4} {...register('description')} error={!!errors.description} helperText={errors.description?.message} />
+          <TextField fullWidth label="Stock Amount" type="number" margin="normal" {...register('stockAmount')} error={!!errors.stockAmount} helperText={errors.stockAmount?.message} />
 
           <Box mt={3} display="flex" justifyContent="space-between">
             <Button variant="outlined" color="secondary" onClick={() => navigate('/products')}>Cancel</Button>

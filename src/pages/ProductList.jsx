@@ -113,8 +113,8 @@ const ProductList = () => {
       </Box>
 
       <Paper sx={{ p: 2, mb: 2 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} sm={4}>
+        <Grid container spacing={2} sx={{ alignItems: "center" }}>
+          <Grid size={{ xs: 12, sm: 4 }}>
             <TextField
               fullWidth
               label="Category"
@@ -124,7 +124,7 @@ const ProductList = () => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid size={{ xs: 12, sm: 4 }}>
             <TextField
               fullWidth
               type="number"
@@ -135,7 +135,7 @@ const ProductList = () => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid size={{ xs: 12, sm: 4 }}>
             <FormControlLabel
               control={
                 <Switch

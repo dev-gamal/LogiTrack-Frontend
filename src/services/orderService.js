@@ -33,8 +33,8 @@ const orderService = {
   },
 
   updateOrderStatus: async (id, status) => {
-    const response = await api.patch(`/orders/${id}/status`, {
-      statut: status,
+    const response = await api.put(`/orders/${id}/status`, null, {
+      params: { status },
     });
     return response.data;
   },

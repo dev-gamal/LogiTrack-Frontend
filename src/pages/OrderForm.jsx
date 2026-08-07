@@ -80,8 +80,8 @@ const OrderForm = () => {
           {errors.orderLines?.message && <Typography color="error" variant="body2">{errors.orderLines.message}</Typography>}
 
           {fields.map((field, index) => (
-            <Grid container spacing={2} alignItems="center" key={field.id} sx={{ mb: 2 }}>
-              <Grid item xs={12} sm={7}>
+            <Grid container spacing={2} key={field.id} sx={{ mb: 2, alignItems: "center" }}>
+              <Grid size={{ xs: 12, sm: 7 }}>
                 <TextField 
                   select fullWidth label="Product" size="small"
                   inputProps={register(`orderLines.${index}.productId`)}
@@ -96,7 +96,7 @@ const OrderForm = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={8} sm={3}>
+              <Grid size={{ xs: 8, sm: 3 }}>
                 <TextField 
                   fullWidth type="number" label="Quantity" size="small"
                   {...register(`orderLines.${index}.quantity`)}
@@ -104,7 +104,7 @@ const OrderForm = () => {
                   helperText={errors.orderLines?.[index]?.quantity?.message}
                 />
               </Grid>
-              <Grid item xs={4} sm={2}>
+              <Grid size={{ xs: 4, sm: 2 }}>
                 <IconButton color="error" onClick={() => remove(index)} disabled={fields.length === 1}>
                   <DeleteIcon />
                 </IconButton>

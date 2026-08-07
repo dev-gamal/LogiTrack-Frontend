@@ -66,7 +66,7 @@ const OrderList = () => {
       {/* Filtres */}
       <Paper sx={{ p: 2, mb: 2 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField 
               select fullWidth label="Filter by status" variant="outlined" size="small"
               value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
@@ -77,7 +77,7 @@ const OrderList = () => {
               <MenuItem value="DELIVERED">Delivered</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <TextField 
               fullWidth label="Client ID (Filter)" variant="outlined" size="small" type="number"
               value={clientFilter} onChange={(e) => setClientFilter(e.target.value)}
