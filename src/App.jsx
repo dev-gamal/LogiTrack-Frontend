@@ -21,6 +21,10 @@ import ClientForm from "./pages/ClientForm";
 import ProductList from "./pages/ProductList";
 import ProductDetails from "./pages/ProductDetails";
 import ProductForm from "./pages/ProductForm";
+import OrderList from "./pages/OrderList";
+import OrderDetails from "./pages/OrderDetails";
+import OrderForm from "./pages/OrderForm";
+import Users from "./pages/Users";
 
 function App() {
   return (
@@ -40,6 +44,8 @@ function App() {
               <Route path="/clients/:id" element={<ClientDetails />} />
               <Route path="/products" element={<ProductList />} />
               <Route path="/products/:id" element={<ProductDetails />} />
+              <Route path="/orders" element={<OrderList />} />
+              <Route path="/orders/:id" element={<OrderDetails />} />
 
               <Route
                 element={<RoleGuard allowedRoles={["ADMIN", "MANAGER"]} />}
@@ -48,6 +54,11 @@ function App() {
                 <Route path="/clients/edit/:id" element={<ClientForm />} />
                 <Route path="/products/new" element={<ProductForm />} />
                 <Route path="/products/edit/:id" element={<ProductForm />} />
+                <Route path="/orders/new" element={<OrderForm />} />
+              </Route>
+
+              <Route element={<RoleGuard allowedRoles={["ADMIN"]} />}>
+                <Route path="/users" element={<Users />} />
               </Route>
             </Route>
           </Route>
