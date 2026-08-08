@@ -11,10 +11,10 @@ import clientService from '../services/clientService';
 import productService from '../services/productService';
 
 const schema = yup.object().shape({
-  clientId: yup.number().required('Client is required'),
+  clientId: yup.number().typeError('Client is required').required('Client is required'),
   orderLines: yup.array().of(
     yup.object().shape({
-      productId: yup.number().required('Product is required'),
+      productId: yup.number().typeError('Product is required').required('Product is required'),
       quantity: yup.number().positive('Quantity must be a positive number').integer('Quantity must be an integer').required('Quantity is required'),
     })
   ).min(1, 'Add at least one product to the order')
@@ -28,7 +28,7 @@ const OrderForm = () => {
 
   const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: { orderLines: [{ productId: '', quantity: 1 }] }
+    defaultValues: { clientId: '', orderLines: [{ productId: '', quantity: 1 }] }
   });
 
   const { fields, append, remove } = useFieldArray({ control, name: 'orderLines' });
@@ -65,14 +65,20 @@ const OrderForm = () => {
         <Typography variant="h5" gutterBottom fontWeight="bold">Create a new order</Typography>
 
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 2 }}>
-          <TextField 
-            select fullWidth label="Client" margin="normal"
-            inputProps={register('clientId')}
-            error={!!errors.clientId} helperText={errors.clientId?.message}
+          <TextField
+            select
+            fullWidth
+            label="Client"
+            margin="normal"
+            {...register('clientId', { valueAsNumber: true })}
+            error={!!errors.clientId}
+            helperText={errors.clientId?.message}
             defaultValue=""
           >
             {clients.map(client => (
-              <MenuItem key={client.id} value={client.id}>{client.nom} ({client.email})</MenuItem>
+              <MenuItem key={client.id} value={client.id}>
+                {client.name} ({client.email})
+              </MenuItem>
             ))}
           </TextField>
 
@@ -82,16 +88,19 @@ const OrderForm = () => {
           {fields.map((field, index) => (
             <Grid container spacing={2} key={field.id} sx={{ mb: 2, alignItems: "center" }}>
               <Grid size={{ xs: 12, sm: 7 }}>
-                <TextField 
-                  select fullWidth label="Product" size="small"
-                  inputProps={register(`orderLines.${index}.productId`)}
+                <TextField
+                  select
+                  fullWidth
+                  label="Product"
+                  size="small"
+                  {...register(`orderLines.${index}.productId`, { valueAsNumber: true })}
                   error={!!errors.orderLines?.[index]?.productId}
                   helperText={errors.orderLines?.[index]?.productId?.message}
                   defaultValue={field.productId}
                 >
                   {products.map(product => (
-                    <MenuItem key={product.id} value={product.id} disabled={product.quantite === 0}>
-                      {product.nom} (Stock: {product.quantite}) - {product.prix} MAD
+                    <MenuItem key={product.id} value={product.id} disabled={product.stockAmount === 0}>
+                      {product.name} (Stock: {product.stockAmount}) - {product.price} MAD
                     </MenuItem>
                   ))}
                 </TextField>

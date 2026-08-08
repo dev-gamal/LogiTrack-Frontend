@@ -28,8 +28,20 @@ const orderService = {
   },
 
   createOrder: async (orderData) => {
-    const response = await api.post("/orders", orderData);
-    return response.data;
+    const { clientId, orderLines } = orderData;
+    const orderResponse = await api.post("/orders", null, {
+      params: { clientId },
+    });
+    const orderId = orderResponse.data.id;
+
+    for (const line of orderLines) {
+      await api.post(`/orders/${orderId}/products`, {
+        productId: line.productId,
+        quantite: line.quantity,
+      });
+    }
+
+    return orderResponse.data;
   },
 
   updateOrderStatus: async (id, status) => {
