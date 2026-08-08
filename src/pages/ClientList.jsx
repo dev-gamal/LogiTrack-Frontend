@@ -32,7 +32,7 @@ const ClientList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState("nom");
+  const [sortBy, setSortBy] = useState("name");
   const [sortDir, setSortDir] = useState("asc");
 
   const { user } = useAuth();
@@ -110,7 +110,10 @@ const ClientList = () => {
           label="Search by name..."
           variant="outlined"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(0);
+          }}
         />
       </Paper>
 

@@ -69,7 +69,7 @@ const OrderList = () => {
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField 
               select fullWidth label="Filter by status" variant="outlined" size="small"
-              value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}
+              value={statusFilter} onChange={(e) => { setStatusFilter(e.target.value); setPage(0); }}
             >
               <MenuItem value="">All statuses</MenuItem>
               <MenuItem value="PENDING">Pending</MenuItem>
@@ -80,7 +80,7 @@ const OrderList = () => {
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField 
               fullWidth label="Client ID (Filter)" variant="outlined" size="small" type="number"
-              value={clientFilter} onChange={(e) => setClientFilter(e.target.value)}
+              value={clientFilter} onChange={(e) => { setClientFilter(e.target.value); setPage(0); }}
             />
           </Grid>
         </Grid>
@@ -110,7 +110,7 @@ const OrderList = () => {
             {orders.map((order) => (
               <TableRow key={order.id}>
                 <TableCell>#{order.id}</TableCell>
-                <TableCell>{order.client?.name || `Client ID: ${order.clientId}`}</TableCell>
+                <TableCell>{order.clientName || `Client ID: ${order.clientId}`}</TableCell>
                 <TableCell>{new Date(order.orderDate).toLocaleDateString()}</TableCell>
                 <TableCell>
                   <Chip label={order.statut} color={statusColors[order.statut] || 'default'} size="small" />

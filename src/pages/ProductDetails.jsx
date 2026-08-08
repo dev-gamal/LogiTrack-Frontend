@@ -40,14 +40,13 @@ const ProductDetails = () => {
         
         <Box display="flex" gap={2} mb={2}>
           <Chip label={product.category} color="primary" variant="outlined" />
-          {product.quantity <= 5 && <Chip label="Low Stock" color="error" />}
+          {product.stockAmount <= 5 && <Chip label="Low Stock" color="error" />}
         </Box>
 
         <Typography variant="h6" gutterBottom><strong>Name :</strong> {product.name}</Typography>
         <Typography variant="h6" gutterBottom><strong>Price :</strong> {product.price} MAD</Typography>
-        <Typography variant="h6" gutterBottom><strong>Quantity in Stock :</strong> {product.quantity}</Typography>
-        <Typography variant="h6" gutterBottom sx={{ mt: 2 }}><strong>Description :</strong></Typography>
-        <Typography variant="body1" paragraph>{product.description}</Typography>
+        <Typography variant="h6" gutterBottom><strong>Stock Amount :</strong> {product.stockAmount}</Typography>
+        <Typography variant="h6" gutterBottom><strong>Category :</strong> {product.category}</Typography>
       </Paper>
     </Container>
   );

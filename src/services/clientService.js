@@ -1,15 +1,17 @@
 import api from './api';
 
 const clientService = {
-  getClients: async (page = 0, size = 10, search = '', sortBy = 'lastName', sortDir = 'asc') => {
-    const response = await api.get('/clients', {
-      params: {
-        page: page,
-        size: size,
-        nom: search,
-        sort: `${sortBy},${sortDir}`
-      }
-    });
+  getClients: async (page = 0, size = 10, search = '', sortBy = 'name', sortDir = 'asc') => {
+    const params = {
+      page,
+      size,
+      sortBy,
+      direction: sortDir,
+    };
+
+    if (search) params.name = search;
+
+    const response = await api.get('/clients', { params });
     return response.data;
   },
 

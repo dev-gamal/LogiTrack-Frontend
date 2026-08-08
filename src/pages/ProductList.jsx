@@ -120,7 +120,10 @@ const ProductList = () => {
               label="Category"
               variant="outlined"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setPage(0);
+              }}
               size="small"
             />
           </Grid>
@@ -131,7 +134,10 @@ const ProductList = () => {
               label="Maximum Price (MAD)"
               variant="outlined"
               value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
+              onChange={(e) => {
+                setMaxPrice(e.target.value);
+                setPage(0);
+              }}
               size="small"
             />
           </Grid>
@@ -140,7 +146,10 @@ const ProductList = () => {
               control={
                 <Switch
                   checked={lowStock}
-                  onChange={(e) => setLowStock(e.target.checked)}
+                  onChange={(e) => {
+                    setLowStock(e.target.checked);
+                    setPage(0);
+                  }}
                   color="error"
                 />
               }

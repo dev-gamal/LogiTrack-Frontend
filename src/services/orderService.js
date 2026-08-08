@@ -12,7 +12,8 @@ const orderService = {
     const params = {
       page: page,
       size: size,
-      sort: `${sortBy},${sortDir}`,
+      sortBy,
+      direction: sortDir,
     };
 
     if (statut) params.statut = statut;

@@ -3,14 +3,15 @@ import api from './api';
 const productService = {
   getProducts: async (page = 0, size = 10, category = '', maxPrice = '', lowStock = false, sortBy = 'name', sortDir = 'asc') => {
     const params = {
-      page: page,
-      size: size,
-      sort: `${sortBy},${sortDir}`
+      page,
+      size,
+      sortBy,
+      direction: sortDir,
     };
 
     if (category) params.category = category;
-    if (maxPrice) params.price = maxPrice;
-    if (lowStock) params.stockAmount = true;
+    if (maxPrice) params.maxPrice = maxPrice;
+    if (lowStock) params.lowStock = true;
 
     const response = await api.get('/products', { params });
     return response.data;

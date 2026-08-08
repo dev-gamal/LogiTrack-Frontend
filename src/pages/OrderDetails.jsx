@@ -128,9 +128,9 @@ const OrderDetails = () => {
         <Typography variant="h6" sx={{ mt: 3, mb: 1 }}>
           Client
         </Typography>
-        {order.client ? (
+        {order.clientName ? (
           <Typography variant="body1">
-            {order.client.name} ({order.client.email}) - {order.client.phone}
+            {order.clientName} (Client ID: {order.clientId})
           </Typography>
         ) : (
           <Typography variant="body1">Client ID: {order.clientId}</Typography>
@@ -152,14 +152,14 @@ const OrderDetails = () => {
             {order.orderLines?.map((line, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  {line.product?.name || `Product ID: ${line.productId}`}
+                  {line.productName || `Product ID: ${line.productId}`}
                 </TableCell>
                 <TableCell align="right">
-                  {line.product?.price || 0} MAD
+                  {line.productPrice ?? 0} MAD
                 </TableCell>
-                <TableCell align="right">{line.quantity}</TableCell>
+                <TableCell align="right">{line.quantite}</TableCell>
                 <TableCell align="right">
-                  {(line.product?.price || 0) * line.quantity} MAD
+                  {(line.productPrice ?? 0) * line.quantite} MAD
                 </TableCell>
               </TableRow>
             ))}
