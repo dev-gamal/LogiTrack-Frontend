@@ -25,6 +25,7 @@ import OrderList from "./pages/OrderList";
 import OrderDetails from "./pages/OrderDetails";
 import OrderForm from "./pages/OrderForm";
 import Users from "./pages/Users";
+import ApiDocs from "./pages/ApiDocs";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
 
               <Route element={<RoleGuard allowedRoles={["ADMIN"]} />}>
                 <Route path="/users" element={<Users />} />
+                <Route path="/api-docs" element={<ApiDocs />} />
               </Route>
             </Route>
           </Route>
