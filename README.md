@@ -54,7 +54,7 @@ LogiTrack-Frontend/
 
 1. **Cloner le dépôt :**
    ```bash
-   git clone <votre-repo-url>
+   git clone https://github.com/dev-gamal/LogiTrack-Frontend
    cd LogiTrack-Frontend
    ```
 
