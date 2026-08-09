@@ -5,7 +5,20 @@ const authService = {
     const response = await api.post("/auth/login", { email, password });
 
     if (response.data && response.data.token) {
-      const { token, ...userData } = response.data;
+      const token = response.data.token;
+      let userData = {};
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        userData = {
+          id: payload.id,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.sub,
+          role: payload.role
+        };
+      } catch (e) {
+        console.error("Failed to parse token payload", e);
+      }
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(userData));
     }

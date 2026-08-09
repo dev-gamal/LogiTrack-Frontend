@@ -51,7 +51,7 @@ const Register = () => {
           <TextField fullWidth label="Email" margin="normal" {...register('email')} error={!!errors.email} helperText={errors.email?.message} />
           <TextField fullWidth type="password" label="Password" margin="normal" {...register('password')} error={!!errors.password} helperText={errors.password?.message} />
           
-          <TextField select fullWidth label="Role" margin="normal" defaultValue="AGENT" inputProps={register('role')} error={!!errors.role} helperText={errors.role?.message}>
+          <TextField select fullWidth label="Role" margin="normal" defaultValue="AGENT" {...register('role')} error={!!errors.role} helperText={errors.role?.message}>
             <MenuItem value="ADMIN">Administrator</MenuItem>
             <MenuItem value="MANAGER">Manager</MenuItem>
             <MenuItem value="AGENT">Agent</MenuItem>
